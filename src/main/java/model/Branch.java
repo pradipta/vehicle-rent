@@ -1,6 +1,10 @@
 package model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Set;
 
 /**
  * @author pradipta.sarma
@@ -8,6 +12,11 @@ import lombok.Data;
  */
 
 @Data
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Branch {
-    private String id;
+    //Assuming name to be unique as the problem statement gets branches by name
+    @EqualsAndHashCode.Include
+    private String name;
+    private Set<Vehicle> vehicles;
 }

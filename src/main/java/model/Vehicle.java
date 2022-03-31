@@ -1,6 +1,8 @@
 package model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author pradipta.sarma
@@ -8,6 +10,8 @@ import lombok.Data;
  */
 
 @Data
+@Builder
+@EqualsAndHashCode
 public class Vehicle {
     private String id;
     private VehicleType vehicleType;
