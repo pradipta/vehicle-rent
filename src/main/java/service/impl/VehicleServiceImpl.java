@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static model.Vehicle.currentCentreId;
 
@@ -62,7 +63,7 @@ public class VehicleServiceImpl implements VehicleService {
         return branch.getVehicles().stream()
                 .filter(vehicle -> isAvailable(vehicle, startTime, endTime))
                 .sorted((vehicle1, vehicle2) -> vehicle1.getPricePerSlot().compareTo(vehicle2.getPricePerSlot()))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
