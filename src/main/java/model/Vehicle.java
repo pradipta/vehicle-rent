@@ -15,7 +15,9 @@ import java.util.Map;
 @Builder
 @EqualsAndHashCode
 public class Vehicle {
+    public static int currentCentreId = 1;
     private String id;
     private VehicleType vehicleType;
+    private Double pricePerSlot;
     private Map<Integer, Boolean> availabilityMap;
 }

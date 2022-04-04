@@ -3,6 +3,7 @@ package model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -16,6 +17,7 @@ public class Booking {
 //    private Set<Slot> slots;
     private int startTime;
     private int endTime;
+    private BigDecimal price;
     private Branch branch;
     private BookingState state;
 }

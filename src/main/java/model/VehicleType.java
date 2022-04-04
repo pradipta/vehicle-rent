@@ -1,8 +1,8 @@
 package model;
 
 public enum VehicleType {
-    ALTROZ,
-    NEXON,
-    TIAGO,
-    HARRIER
+    BIKE,
+    VAN,
+    CAR,
+    BUS
 }

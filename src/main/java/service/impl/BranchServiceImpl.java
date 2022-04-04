@@ -27,15 +27,11 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public Optional<Branch> add(String name, VehicleType type) throws Exception {
-        Vehicle vehicle = Vehicle.builder()
-                .id(UUID.randomUUID().toString())
-                .vehicleType(type)
-                .build();
-
+    public Optional<Branch> add(String name, Set<VehicleType> vehicleTypes) throws Exception {
         Branch branch = Branch.builder()
                 .name(name)
-                .vehicles(Set.of(vehicle))
+                .vehicles(new HashSet<>())
+                .supportedVehicleTypes(vehicleTypes)
                 .build();
 
         if (branches.containsKey(name)) {

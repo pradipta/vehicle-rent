@@ -20,6 +20,10 @@ public class Branch {
     //Assuming name to be unique as the problem statement gets branches by name
     @EqualsAndHashCode.Include
     private String name;
+    private Set<VehicleType> supportedVehicleTypes;
     private Set<Vehicle> vehicles;
 
+    public boolean addVehicle(Vehicle vehicle) {
+        return vehicles.add(vehicle);
+    }
 }

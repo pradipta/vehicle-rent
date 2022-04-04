@@ -15,8 +15,7 @@ import java.util.Set;
  */
 public interface BranchService {
     Map<String, Branch> getAll();
-    Optional<Branch> add(String name, VehicleType type) throws Exception;
+    Optional<Branch> add(String name, Set<VehicleType> vehicleTypes) throws Exception;
     Optional<Branch> get(String name);
-
     List<Vehicle> getVehiclesOfType(Branch branch, VehicleType vehicleType);
 }

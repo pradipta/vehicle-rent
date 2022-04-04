@@ -10,8 +10,9 @@ import service.BookingService;
 import service.BranchService;
 import service.VehicleService;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author pradipta.sarma
@@ -25,7 +26,7 @@ public class BookingServiceImpl implements BookingService {
     private BranchService branchService;
 
     @Override
-    public Boolean book(String branchName, VehicleType vehicleType, int startTime, int endTime) throws Exception {
+    public Optional<Booking> book(String branchName, VehicleType vehicleType, int startTime, int endTime) throws Exception {
         if (startTime >= endTime) {
             throw new Exception("Invalid time bounds passed");
         }
@@ -36,15 +37,18 @@ public class BookingServiceImpl implements BookingService {
         Vehicle selectedVehicle = null;
 
         for (Vehicle vehicle : vehicles) {
-            if (isAvailable(vehicle, startTime, endTime)) {
+            if (vehicleService.isAvailable(vehicle, startTime, endTime)) {
                 selectedVehicle = selectThisVehicle(vehicle, startTime, endTime);
                 break;
             }
         }
 
         if (selectedVehicle == null) {
+            System.out.println(-1);
             throw new Exception("No vehicles for the slots found");
         }
+
+        BigDecimal price = BigDecimal.valueOf(selectedVehicle.getPricePerSlot() * (endTime - startTime));
 
         Booking booking = Booking.builder()
                 .branch(branch)
@@ -52,11 +56,11 @@ public class BookingServiceImpl implements BookingService {
                 .endTime(endTime)
                 .state(BookingState.ACTIVE)
                 .vehicle(selectedVehicle)
+                .price(price)
                 .build();
 
         allBookings.add(booking);
-
-        return true;
+        return Optional.of(booking);
     }
 
     private Vehicle selectThisVehicle(Vehicle vehicle, int startTime, int endTime) {
@@ -64,14 +68,5 @@ public class BookingServiceImpl implements BookingService {
             vehicle.getAvailabilityMap().put(i, false);
         }
         return vehicle;
-    }
-
-    private boolean isAvailable(Vehicle vehicle, int startTime, int endTime) {
-        for (int i = startTime; i <= endTime; i++) {
-            if (vehicle.getAvailabilityMap().containsKey(i) && !vehicle.getAvailabilityMap().get(i)) {
-                return false;
-            }
-        }
-        return true;
     }
 }
