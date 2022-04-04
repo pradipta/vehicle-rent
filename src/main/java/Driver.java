@@ -1,5 +1,8 @@
 import factory.PricingServiceFactory;
 import model.VehicleType;
+import service.BookingService;
+import service.BranchService;
+import service.VehicleService;
 import service.impl.BookingServiceImpl;
 import service.impl.BranchServiceImpl;
 import service.impl.VehicleServiceImpl;
@@ -15,10 +18,10 @@ import java.util.Set;
 
 public class Driver {
     public static void main(String[] args) throws Exception {
-        var branchService = new BranchServiceImpl();
-        var vehicleService = new VehicleServiceImpl(new HashSet<>(), branchService);
-        var pricingServiceFactory = new PricingServiceFactory(vehicleService);
-        var bookingService = new BookingServiceImpl(new ArrayList<>(), vehicleService, branchService, pricingServiceFactory);
+        BranchService branchService = new BranchServiceImpl();
+        VehicleService vehicleService = new VehicleServiceImpl(new HashSet<>(), branchService);
+        PricingServiceFactory pricingServiceFactory = new PricingServiceFactory(vehicleService);
+        BookingService bookingService = new BookingServiceImpl(new ArrayList<>(), vehicleService, branchService, pricingServiceFactory);
 
         branchService.add("B1", Set.of(VehicleType.CAR, VehicleType.BIKE, VehicleType.VAN));
         vehicleService.add("B1", VehicleType.CAR, 500.00);
