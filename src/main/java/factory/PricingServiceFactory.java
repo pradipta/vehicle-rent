@@ -5,6 +5,7 @@ import service.VehicleService;
 import service.impl.DynamicPricingServiceImpl;
 import service.impl.StaticPricingServiceImpl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,8 +18,10 @@ public class PricingServiceFactory {
 
     public PricingServiceFactory(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
-        this.pricingServiceMap = Map.of("STATIC", new StaticPricingServiceImpl(),
-                "DYNAMIC", new DynamicPricingServiceImpl(this.vehicleService));
+        this.pricingServiceMap = new HashMap<String, PricingService>() {{
+            put("STATIC", new StaticPricingServiceImpl());
+            put("DYNAMIC", new DynamicPricingServiceImpl(vehicleService));
+        }};
     }
 
     public PricingService get(String strategy) throws Exception {

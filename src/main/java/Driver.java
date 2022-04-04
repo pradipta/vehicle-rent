@@ -23,7 +23,12 @@ public class Driver {
         PricingServiceFactory pricingServiceFactory = new PricingServiceFactory(vehicleService);
         BookingService bookingService = new BookingServiceImpl(new ArrayList<>(), vehicleService, branchService, pricingServiceFactory);
 
-        branchService.add("B1", Set.of(VehicleType.CAR, VehicleType.BIKE, VehicleType.VAN));
+        branchService.add("B1", new HashSet<VehicleType>() {{
+            add(VehicleType.CAR);
+            add(VehicleType.BIKE);
+            add(VehicleType.VAN);
+        }});
+
         vehicleService.add("B1", VehicleType.CAR, 500.00);
         vehicleService.add("B1", VehicleType.CAR, 1000.00);
         vehicleService.add("B1", VehicleType.BIKE, 250.00);
